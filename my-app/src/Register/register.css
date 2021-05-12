@@ -172,6 +172,9 @@
     background-color: rgba(254, 77, 1, 255);
     color: white;
   }
+  .register-input:focus ~ label {
+    margin-left: -2%;
+  }
 }
 @media screen and (max-width:449px) {
   .register-heading {
@@ -209,11 +212,17 @@
     background-color: rgba(254, 77, 1, 255);
     color: white;
   }
+  .register-input:focus ~ label {
+    margin-left: 1%;
+  }
 }
 @media screen and (max-width:348px) {
   .register-heading
   {
     margin-left:15vw ;
+  }
+  .register-input:focus ~ label {
+    margin-left: 5%;
   }
 }
   

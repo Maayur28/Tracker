@@ -121,6 +121,10 @@
   top: 0%;
   font-size: 14px;
 }
+.emailNeverShare
+{
+  margin-left: 2.5rem;
+}
 @media screen and (max-width: 575px) {
   .login-heading {
     margin-left: 25vw;
@@ -143,18 +147,34 @@
   .login-forget {
     margin-right: 200px;
   }
+  .login-input:focus ~ label {
+    margin-left: -2%;
+  }
 }
 @media screen and (max-width: 463px) {
   .login-heading {
     margin-left: 20vw;
   }
+  .emailNeverShare
+  {
+    margin-left: 2rem;
+    font-size: 0.9rem !important;
+  }
   .login-forget {
     margin-right: 100px;
   }
+  .login-input:focus ~ label {
+    margin-left: 1%;
+  }
 }
-@media screen and (max-width: 363px) {
+@media screen and (max-width: 378px) {
   .login-heading {
     margin-left: 15vw;
+  }
+  .emailNeverShare
+  {
+    margin-left: 2rem;
+    font-size: 0.8rem !important;
   }
   .login-title {
     font-size: 1.7rem;
@@ -165,5 +185,18 @@
   }
   .login-forget {
     margin-right: 50px;
+  }
+  .login-input:focus ~ label {
+    margin-left: 3%;
+  }
+}
+@media screen and (max-width: 341px) {
+  .emailNeverShare
+  {
+    margin-left: 1.5rem;
+    font-size: 0.65rem !important;
+  }
+  .login-input:focus ~ label {
+    margin-left: 6.5%;
   }
 }

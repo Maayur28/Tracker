@@ -3,7 +3,7 @@ import "./login.css";
 import { Modal } from "react-bootstrap";
 import { Formik, useField } from "formik";
 import * as Yup from "yup";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { Button } from "react-bootstrap";
 import "react-toastify/dist/ReactToastify.min.css";
 
@@ -50,6 +50,9 @@ const Login = (props) => {
           <label className="login-label" htmlFor={props.name}>
             {label}
           </label>
+          {label !== 'Password' && !meta.error && <div className="text-muted emailNeverShare">
+            We'll never share your email with anyone else.
+          </div>}
           <div className="login-inputfieldError">
             {meta.touched && meta.error ? meta.error : null}
           </div>
@@ -78,49 +81,41 @@ const Login = (props) => {
             })}
             onSubmit={(values, { setSubmitting, resetForm }) => {
               seterrorOccur();
-              //   fetch("https://mayur28user.herokuapp.com/login", {
-              //   // fetch("http://localhost:3333/login", {
-              //     method: "POST",
-              //     body: JSON.stringify(values),
-              //     headers: {
-              //       "Content-type": "application/json; charset=UTF-8",
-              //     },
-              //   })
-              //     .then((response) => {
-              //       if (response.status >= 200 && response.status <= 299) {
-              //         return response.json();
-              //       } else {
-              //         return response.text().then((text) => {
-              //           throw new Error(text);
-              //         });
-              //       }
-              //     })
-              //     .then((datarec) => {
-              //       localStorage.setItem("x-auth-token", datarec.authToken);
-              //       fetch("https://mayur28cart.herokuapp.com/cartcount",{
-              //         headers:{
-              //           "x-auth-token":localStorage.getItem('x-auth-token')
-              //         }
-              //       })
-              //         .then((response) => response.json())
-              //         .then((datacount) => {setcartCount(datacount.count);})
-              //         .catch((err) => console.error(err));
-              //       datarec &&
-              //         toast.success("Login Successful", {
-              //           position: "bottom-center",
-              //           autoClose: 1000,
-              //           hideProgressBar: false,
-              //           closeOnClick: true,
-              //           progress: undefined,
-              //         });
-              //       resetForm();
-              //       setSubmitting(false);
-              //       handleLoginStatus(true);
-              //     })
-              //     .catch((err) => {
-              //       setSubmitting(false);
-              //       seterrorOccur(err.message);
-              //     });
+              // fetch("https://mayur28user.herokuapp.com/login", {
+              fetch("http://localhost:1111/login", {
+                method: "POST",
+                body: JSON.stringify(values),
+                headers: {
+                  "Content-type": "application/json; charset=UTF-8",
+                },
+              })
+                .then((response) => {
+                  if (response.status >= 200 && response.status <= 299) {
+                    return response.json();
+                  } else {
+                    return response.text().then((text) => {
+                      throw new Error(text);
+                    });
+                  }
+                })
+                .then((datarec) => {
+                  localStorage.setItem("x-auth-token", datarec.authToken);
+                  datarec &&
+                    toast.success("Login Successful", {
+                      position: "bottom-center",
+                      autoClose: 1000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      progress: undefined,
+                    });
+                  resetForm();
+                  setSubmitting(false);
+                  handleLoginStatus(true);
+                })
+                .catch((err) => {
+                  setSubmitting(false);
+                  seterrorOccur(err.message);
+                });
             }}
           >
             {(formprops) => (
@@ -192,15 +187,6 @@ const Login = (props) => {
             )}
           </Formik>
         </Modal.Body>
-        <ToastContainer
-          position="bottom-center"
-          autoClose={1999}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-        />
       </Modal>
       {/* {forget ? (
           <ForgetPass handleForgetlaunch={handleClose}/>
