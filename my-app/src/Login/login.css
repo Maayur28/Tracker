@@ -1,0 +1,169 @@
+.login-form {
+  margin-left: 35px;
+  margin-bottom: 20px;
+}
+.login-cross {
+  position: absolute;
+  right: 5%;
+  font-weight: bolder;
+  font-size: 20px;
+  cursor: pointer;
+}
+.login-inputDiv {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 90px;
+  width: 400px;
+  margin-bottom: 10px;
+}
+.fa-envelope {
+  position: absolute;
+  bottom: 50%;
+  font-size: 20px;
+}
+.fa-lock {
+  position: absolute;
+  bottom: 53%;
+  font-size: 20px;
+}
+.login-label {
+  position: absolute;
+  bottom: 40%;
+  left: 10%;
+  font-size: 18px;
+  pointer-events: none;
+}
+.login-input {
+  border: none;
+  border-bottom: 2px solid #999;
+  padding-top: 20px;
+  padding-left: 40px;
+}
+.login-heading {
+  display: flex;
+  flex-direction: column;
+  margin-left: 125px;
+  margin-bottom: 10px;
+}
+.login-logo {
+  width: 80px;
+  height: 50px;
+  margin-left: 60px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.login-passwordEye {
+  position: absolute;
+  right: 0;
+  top: 28%;
+  cursor: pointer;
+}
+.login-button {
+  border: none;
+  background-color: rgba(254, 77, 1, 255);
+  color: white;
+  padding: 10px 165px 10px 165px;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+.login-forgetButton {
+  display: flex;
+  margin-top: 20px;
+}
+.login-buttoncommon {
+  border: none;
+  background-color: transparent;
+  font-size: 14px;
+}
+.login-forget {
+  color: #00acee;
+  margin-right: 150px;
+}
+.login-forget:hover {
+  text-decoration: underline;
+}
+.login-register span {
+  color: #00acee;
+}
+.login-register:hover span {
+  text-decoration: underline;
+}
+.login-forget:focus {
+  outline: none;
+}
+.login-button:focus {
+  outline: none;
+}
+.login-inputfieldError {
+  margin-left: 40px;
+  color: rgb(255, 1, 1);
+}
+.login-input::placeholder {
+  color: transparent;
+  user-select: none;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: #11998e;
+}
+.login-input:focus::placeholder {
+  color: #999;
+}
+
+.login-input:focus ~ label {
+  top: 0%;
+  font-size: 14px;
+}
+
+.login-input:not(:placeholder-shown) ~ label {
+  top: 0%;
+  font-size: 14px;
+}
+@media screen and (max-width: 575px) {
+  .login-heading {
+    margin-left: 25vw;
+  }
+  .register-buttonDiv {
+    margin-right: 20px;
+  }
+  .login-title {
+    font-size: 2rem;
+  }
+  .login-form {
+    margin-left: 0px;
+  }
+  .login-inputDiv {
+    width: 85vw;
+  }
+  .login-namelabel {
+    left: 10%;
+  }
+  .login-forget {
+    margin-right: 200px;
+  }
+}
+@media screen and (max-width: 463px) {
+  .login-heading {
+    margin-left: 20vw;
+  }
+  .login-forget {
+    margin-right: 100px;
+  }
+}
+@media screen and (max-width: 363px) {
+  .login-heading {
+    margin-left: 15vw;
+  }
+  .login-title {
+    font-size: 1.7rem;
+  }
+  .login-logo {
+    width: 50px;
+    height: 30px;
+  }
+  .login-forget {
+    margin-right: 50px;
+  }
+}
