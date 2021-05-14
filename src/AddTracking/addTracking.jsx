@@ -118,7 +118,7 @@ const AddTracking = (props) => {
     setexpPrice(0);
     setorgPrice(0);
     setname('');
-    fetch("https://pricetrackerorder.herokuapp.com//getprice", {
+    fetch("https://pricetrackerorder.herokuapp.com/getprice", {
       method: "POST",
       body: JSON.stringify({ url: e.target.value }),
       headers: {
