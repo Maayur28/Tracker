@@ -3,9 +3,9 @@ import "./login.css";
 import { Modal } from "react-bootstrap";
 import { Formik, useField } from "formik";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
 import { Button } from "react-bootstrap";
-import "react-toastify/dist/ReactToastify.min.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = (props) => {
   const [passShow, setpassShow] = useState(false);
@@ -50,9 +50,11 @@ const Login = (props) => {
           <label className="login-label" htmlFor={props.name}>
             {label}
           </label>
-          {label !== 'Password' && !meta.error && <div className="text-muted emailNeverShare">
-            We'll never share your email with anyone else.
-          </div>}
+          {label !== "Password" && !meta.error && (
+            <div className="text-muted emailNeverShare">
+              We'll never share your email with anyone else.
+            </div>
+          )}
           <div className="login-inputfieldError">
             {meta.touched && meta.error ? meta.error : null}
           </div>
@@ -101,12 +103,14 @@ const Login = (props) => {
                 .then((datarec) => {
                   localStorage.setItem("x-auth-token", datarec.authToken);
                   datarec &&
-                    toast.success("Login Successful", {
-                      position: "bottom-center",
-                      autoClose: 1000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      progress: undefined,
+                  toast.dark('Login Successful', {
+                    position: "bottom-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
                     });
                   resetForm();
                   setSubmitting(false);
@@ -188,6 +192,17 @@ const Login = (props) => {
           </Formik>
         </Modal.Body>
       </Modal>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+      />
       {/* {forget ? (
           <ForgetPass handleForgetlaunch={handleClose}/>
         ) : null} */}

@@ -2,8 +2,10 @@ import React,{useState} from "react";
 import "./navbar.css";
 import Login from '../Login/login';
 import Register from '../Register/register';
-import {toast} from 'react-toastify';
-import { Image, Button } from "react-bootstrap";
+import { Image, Button} from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import {Link} from 'react-router-dom';
+import "react-toastify/dist/ReactToastify.css";
 
 const Navbar = () => {
   const[loginModal,setLoginModal]=useState(false);
@@ -16,13 +18,15 @@ const Navbar = () => {
     {
       localStorage.clear();
       setisLogin(false);
-      toast.error("Logout Successful", {
+      toast.dark('Logout successful', {
         position: "bottom-center",
-        autoClose: 1000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
         progress: undefined,
-      });
+        });
     }
   }
   const handleLoginLaunch = (val) => {
@@ -42,7 +46,9 @@ const Navbar = () => {
   return (
     <>
     <div className="navbar">
+      <Link to="/" exact="true">
       <Image src="logos.png" fluid style={{ color: "white" }} />
+      </Link>
       <Button variant="outline-danger" onClick={handleLoginLogout}>{isLogin?'LOGOUT':'LOGIN'}</Button>
     </div>
     {
@@ -51,6 +57,17 @@ const Navbar = () => {
     {
       registerModal?<Register handleRegisterLaunch={handleRegisterLaunch} handleisLogin={handleisLogin}/>:null
     }
+     <ToastContainer
+        position="bottom-center"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+      />
     </>
   );
 };

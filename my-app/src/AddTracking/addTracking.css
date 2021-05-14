@@ -7,12 +7,26 @@
 {
     margin: 0px 3rem;
 }
+.notify-price
+{
+    font-size: 0.9rem;
+}
+@media screen and (max-width:577px) {
+    .notify-price
+{
+    font-size: 0.8rem;
+}   
+}
 @media screen and (max-width:477px) {
     .addTracking-heading
-{
-    font-size: 1.3rem;
-    font-weight: bolder;
-}
+    {
+        font-size: 1.3rem;
+        font-weight: bolder;
+    }
+    .notify-price
+    {
+        font-size: 0.7rem;
+    }
 .addTracking-headingDiv
 {
     margin: 0px 2rem;
@@ -23,6 +37,10 @@
 {
     font-size: 1.1rem;
     font-weight: bolder;
+}
+.notify-price
+{
+    font-size: 0.6rem;
 }
 .addTracking-headingDiv
 {

@@ -77,6 +77,9 @@ const Register = (props) => {
           <label className="register-label" htmlFor={props.name}>
             {label}
           </label>
+          {label === 'Email' && !meta.error && <div className="text-muted emailNeverShare">
+            We'll never share your email with anyone else.
+          </div>}
           <div className="register-inputfieldError">
             {label === "Confirm Password"
               ? meta.error && meta.touched
@@ -127,52 +130,43 @@ const Register = (props) => {
                 .required("Please enter confirm password"),
             })}
             onSubmit={(values, { setSubmitting, resetForm }) => {
-              //   seterrorOccur();
+                seterrorOccur();
               //   fetch("https://mayur28user.herokuapp.com/register", {
-              //     method: "POST",
-              //     body: JSON.stringify(values),
-              //     headers: {
-              //       "Content-type": "application/json; charset=UTF-8",
-              //     },
-              //   })
-              //     .then((response) => {
-              //       if (response.status >= 200 && response.status <= 299) {
-              //         return response.json();
-              //       } else {
-              //         return response.text().then((text) => {
-              //           throw new Error(text);
-              //         });
-              //       }
-              //     })
-              // .then((datarec) => {
-              //   localStorage.setItem("x-auth-token", datarec.authToken);
-              //   fetch("https://mayur28cart.herokuapp.com/cartcount", {
-              //     headers: {
-              //       "x-auth-token": localStorage.getItem("x-auth-token"),
-              //     },
-              //   })
-              //     .then((response) => response.json())
-              //     .then((datacount) => {
-              //       setcartCount(datacount.count);
-              //     })
-              //     .catch((err) => console.error(err));
-              //   datarec &&
-              //     toast.success("Registered Successfully", {
-              //       position: "bottom-center",
-              //       autoClose: 1000,
-              //       hideProgressBar: false,
-              //       closeOnClick: true,
-              //       progress: undefined,
-              //     });
-              //   resetForm();
-              //   setSubmitting(false);
-              //   handleLoginStatus(true);
-              //   handleClose();
-              // })
-              // .catch((err) => {
-              //   setSubmitting(false);
-              //   seterrorOccur(err.message);
-              // });
+                fetch("http://localhost:1111/register", {
+                  method: "POST",
+                  body: JSON.stringify(values),
+                  headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                  },
+                })
+                  .then((response) => {
+                    if (response.status >= 200 && response.status <= 299) {
+                      return response.json();
+                    } else {
+                      return response.text().then((text) => {
+                        throw new Error(text);
+                      });
+                    }
+                  })
+              .then((datarec) => {
+                localStorage.setItem("x-auth-token", datarec.authToken);
+                datarec &&
+                  toast.success("Registered Successfully", {
+                    position: "bottom-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    progress: undefined,
+                  });
+                resetForm();
+                setSubmitting(false);
+                handleLoginStatus(true);
+                handleClose();
+              })
+              .catch((err) => {
+                setSubmitting(false);
+                seterrorOccur(err.message);
+              });
             }}
           >
             {(formprops) => (
@@ -217,7 +211,7 @@ const Register = (props) => {
                   />
                   <div className="register-buttonDiv"> 
                     <Button type="submit" variant="dark" block>
-                      {/* {formprops.isSubmitting ? (
+                      {formprops.isSubmitting ? (
                       <span
                       style={{ marginRight: "5px" }}
                       className="spinner-grow spinner-grow-sm"
@@ -231,7 +225,7 @@ const Register = (props) => {
                         role="status"
                         aria-hidden="true"
                       ></span>
-                    )} */}
+                    )}
                       Register
                     </Button>
                   </div>
