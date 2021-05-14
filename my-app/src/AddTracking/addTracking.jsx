@@ -22,7 +22,7 @@ const AddTracking = (props) => {
     if(props.item)
     {
       obj._id=props.item._id;
-      fetch("http://localhost:2222/edittracker", {
+      fetch("https://pricetrackerorder.herokuapp.com/edittracker", {
       method: "PUT",
       body: JSON.stringify(obj),
       headers: {
@@ -60,7 +60,7 @@ const AddTracking = (props) => {
     }
     else
     {
-    fetch("http://localhost:2222/addtracker", {
+    fetch("https://pricetrackerorder.herokuapp.com/addtracker", {
       method: "POST",
       body: JSON.stringify(obj),
       headers: {
@@ -118,7 +118,7 @@ const AddTracking = (props) => {
     setexpPrice(0);
     setorgPrice(0);
     setname('');
-    fetch("http://localhost:2222/getprice", {
+    fetch("https://pricetrackerorder.herokuapp.com//getprice", {
       method: "POST",
       body: JSON.stringify({ url: e.target.value }),
       headers: {

@@ -131,8 +131,7 @@ const Register = (props) => {
             })}
             onSubmit={(values, { setSubmitting, resetForm }) => {
                 seterrorOccur();
-              //   fetch("https://mayur28user.herokuapp.com/register", {
-                fetch("http://localhost:1111/register", {
+                fetch("https://pricetrackeruser.herokuapp.com/register", {
                   method: "POST",
                   body: JSON.stringify(values),
                   headers: {

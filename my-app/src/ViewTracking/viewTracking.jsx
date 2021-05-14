@@ -14,7 +14,7 @@ const ViewTracking = () => {
   const [editModal,seteditModal]=useState(false);
   useEffect(() => {
     setreturned(false);
-    fetch("http://localhost:2222/gettracker", {
+    fetch("https://pricetrackerorder.herokuapp.com/gettracker", {
       headers: {
         "x-auth-token": localStorage.getItem("x-auth-token"),
       },
@@ -48,7 +48,7 @@ const ViewTracking = () => {
   const handleEditTrack=()=>{
     setreturned(false);
     seteditModal(false);
-    fetch("http://localhost:2222/gettracker", {
+    fetch("https://pricetrackerorder.herokuapp.com/gettracker", {
       headers: {
         "x-auth-token": localStorage.getItem("x-auth-token"),
       },
@@ -76,7 +76,7 @@ const ViewTracking = () => {
       setdeleteReturned(true);
       let obj = {};
       obj._id = itemDelete;
-      fetch("http://localhost:2222/deleteitem", {
+      fetch("https://pricetrackerorder.herokuapp.com/deleteitem", {
         method: "DELETE",
         body: JSON.stringify(obj),
         headers: {
