@@ -238,7 +238,7 @@ const AddTracking = (props) => {
           type="submit"
           onClick={handleTrack}
           variant={"dark"}
-          disabled={expPrice === 0 ? true :progress?true:false}
+          disabled={expPrice === 0 || (props.item && expPrice===props.item.expectedPrice) ? true :progress?true:false}
         >
          {props.item?'Update Item':'Track'}
         </Button>
