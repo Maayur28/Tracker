@@ -22,7 +22,7 @@
 }
 .running-bar
 {
-    background-color: red;
+    background-color: rgb(220,53,69);
     position: absolute;
     top: 0;
     left: 0;
