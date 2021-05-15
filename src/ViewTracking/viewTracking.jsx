@@ -15,6 +15,7 @@ const ViewTracking = () => {
   useEffect(() => {
     setreturned(false);
     fetch("https://pricetrackerorder.herokuapp.com/gettracker", {
+    // fetch("http://localhost:2222/gettracker", {
       headers: {
         "x-auth-token": localStorage.getItem("x-auth-token"),
       },
@@ -45,10 +46,14 @@ const ViewTracking = () => {
     setitemEdit(val);
     seteditModal(true);
   };
+  const handleEditedTrack=()=>{
+    seteditModal(false);
+  }
   const handleEditTrack=()=>{
     setreturned(false);
     seteditModal(false);
     fetch("https://pricetrackerorder.herokuapp.com/gettracker", {
+      // fetch("http://localhost:2222/gettracker", {
       headers: {
         "x-auth-token": localStorage.getItem("x-auth-token"),
       },
@@ -77,6 +82,7 @@ const ViewTracking = () => {
       let obj = {};
       obj._id = itemDelete;
       fetch("https://pricetrackerorder.herokuapp.com/deleteitem", {
+        // fetch("http://localhost:2222/deleteitem", {
         method: "DELETE",
         body: JSON.stringify(obj),
         headers: {
@@ -140,7 +146,6 @@ const ViewTracking = () => {
               <tr>
                 <th>Product Name</th>
                 <th>Price(when added)</th>
-                <th>Current Price</th>
                 <th>Lowest Price(till added)</th>
                 <th>Expected Price</th>
                 <th>Edit/Delete</th>
@@ -154,7 +159,7 @@ const ViewTracking = () => {
                     <i className="fas fa-rupee-sign"></i>
                     {val.whenAddedPrice}
                   </td>
-                  <td>
+                  {/* <td>
                     <i className="fas fa-rupee-sign"></i>
                     {val.currentPrice}{" "}
                     {val.whenAddedPrice < val.currentPrice ? (
@@ -168,7 +173,7 @@ const ViewTracking = () => {
                         style={{ color: "greenyellow" }}
                       ></i>
                     ) : null}
-                  </td>
+                  </td> */}
                   <td>
                     <i className="fas fa-rupee-sign"></i>
                     {val.lowestPrice}
@@ -262,7 +267,7 @@ const ViewTracking = () => {
         pauseOnHover={false}
       />
       {
-        editModal ? <AddTracking item={itemEdit} handleTrack={handleEditTrack}/>:null
+        editModal ? <AddTracking item={itemEdit} handleTrack={handleEditTrack} handleEditedTrack={handleEditedTrack}/>:null
       }
     </>
   );

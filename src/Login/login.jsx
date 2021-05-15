@@ -83,7 +83,6 @@ const Login = (props) => {
             })}
             onSubmit={(values, { setSubmitting, resetForm }) => {
               seterrorOccur();
-              // fetch("https://mayur28user.herokuapp.com/login", {
               fetch("https://pricetrackeruser.herokuapp.com/login", {
                 method: "POST",
                 body: JSON.stringify(values),

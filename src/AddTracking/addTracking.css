@@ -11,6 +11,37 @@
 {
     font-size: 0.9rem;
 }
+.progress-bar
+{
+    background-color: rgba(0, 0, 0, 0.411);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+}
+.running-bar
+{
+    background-color: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 5px;
+    animation-name: example;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+@keyframes example {
+    from {
+        left: 0%;
+    }
+    to
+    {
+        left: 100%;
+    }
+    
+}
 @media screen and (max-width:577px) {
     .notify-price
 {

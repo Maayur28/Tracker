@@ -7,9 +7,10 @@ import "react-toastify/dist/ReactToastify.css";
 const AddTracking = (props) => {
   const [modalShow, setModalShow] = useState(true);
   const [expPrice, setexpPrice] = useState(props.item?props.item.expectedPrice:0);
-  const [orgPrice, setorgPrice] = useState(props.item?props.item.currentPrice:0);
+  const [orgPrice, setorgPrice] = useState(props.item?props.item.whenAddedPrice:0);
   const [Url, setUrl] = useState(props.item?props.item.url:"");
   const [name,setname]=useState(props.item?props.item.name:'');
+  const [progress,setrpogress]=useState(false);
   const handleTrack = () => {
     let obj = {};
     obj.url = Url;
@@ -18,7 +19,7 @@ const AddTracking = (props) => {
     obj.lowestPrice=orgPrice;
     obj.name=name;
     obj.mailPrice=props.item?props.item.mailPrice:orgPrice+1;
-    console.log(obj);
+    setrpogress(true);
     if(props.item)
     {
       obj._id=props.item._id;
@@ -42,8 +43,9 @@ const AddTracking = (props) => {
       .then((data) => {
         if(data.success===true)
         {
+          setrpogress(false);
           handleHide();
-          toast.info('Updated tracking info has been sent to your registered email', {
+          toast.info('Updated info has been sent to your email', {
             position: "bottom-center",
             autoClose: 1000,
             hideProgressBar: false,
@@ -55,6 +57,7 @@ const AddTracking = (props) => {
         }
       })
       .catch((err) => {
+        setrpogress(false);
         console.log(err);
       });
     }
@@ -78,10 +81,11 @@ const AddTracking = (props) => {
         }
       })
       .then((data) => {
+        setrpogress(false);
         if(data.success===true)
         {
           handleHide();
-          toast.info('Tracking detail has been sent to your email', {
+          toast.info('Tracking info has been sent to your email', {
             position: "bottom-center",
             autoClose: 2500,
             hideProgressBar: false,
@@ -93,6 +97,7 @@ const AddTracking = (props) => {
         }
       })
       .catch((err) => {
+        setrpogress(false);
         console.log(err);
       });
     }
@@ -112,13 +117,18 @@ const AddTracking = (props) => {
     setModalShow(false);
     props.handleTrack();
   }
+  const handleEditedHide=()=>{
+    setModalShow(false);
+    props.handleEditedTrack();
+  }
   const getPrice = (e) => {
     e.target.blur();
+    setrpogress(true);
     setUrl(e.target.value);
     setexpPrice(0);
     setorgPrice(0);
     setname('');
-    fetch("https://pricetrackerorder.herokuapp.com//getprice", {
+    fetch("https://pricetrackerorder.herokuapp.com/getprice", {
       method: "POST",
       body: JSON.stringify({ url: e.target.value }),
       headers: {
@@ -137,24 +147,30 @@ const AddTracking = (props) => {
       .then((data) => {
         setname(data.name);
         let price = data.price
-          .replace(/,/g, "")
-          .slice(data.price.indexOf(";") + 1);
+        .replace(/,/g, "")
+        .slice(data.price.indexOf(";") + 1);
         setorgPrice(Number(price.replace(/,/g, "").slice(1)));
+        setrpogress(false);
       })
       .catch((err) => {
         console.log(err);
+        setrpogress(false);
       });
   };
   return (
     <div className="addTracking">
       <Modal
         show={modalShow}
-        onHide={handleHide}
+        onHide={props.item && props.item.expectedPrice===expPrice?handleEditedHide:handleHide}
         size="md"
         centered
         backdrop="static"
       >
         <Modal.Header closeButton>
+          {progress?<div className="progress-bar" style={{backgroundColor:'rgba(0, 0, 0, 0.450)'}}>
+            <div className="running-bar">
+            </div>
+          </div>:null}
           <Modal.Title className="addTracking-headingDiv">
             <p className="addTracking-heading">{props.item?'EDIT ITEM EXPECTED PRICE':'ADD TRACKING URL/LINK'}</p>
           </Modal.Title>
@@ -168,7 +184,7 @@ const AddTracking = (props) => {
                 placeholder="Paste the url/link here"
                 onChange={getPrice}
                 value={Url}
-                disabled={props.item?true:false}
+                disabled={props.item?true:progress?true:false}
               />
               <Form.Text className="text-muted">
                 Please check the link before adding to track.
@@ -176,7 +192,7 @@ const AddTracking = (props) => {
             </Form.Group>
             <Form.Group>
             <Form.Label>Name of product</Form.Label>
-            <Form.Control type="text" value={name} readOnly />
+            <Form.Control type="text" value={name} disabled />
             </Form.Group>
             <Form.Group>
               <Form.Label>Price</Form.Label>
@@ -186,7 +202,7 @@ const AddTracking = (props) => {
                 max={orgPrice}
                 value={expPrice}
                 onChange={handleRange}
-                disabled={orgPrice === 0 ? true : false}
+                disabled={orgPrice === 0 ? true :progress?true:false}
               />
             </Form.Group>
             <Form.Row>
@@ -209,7 +225,7 @@ const AddTracking = (props) => {
                       <i className="fas fa-rupee-sign"></i>
                     </InputGroup.Text>
                   </InputGroup.Prepend>
-                  <Form.Control type="number" value={expPrice} onChange={handlePriceInput} min={1} max={orgPrice} disabled={orgPrice === 0 ? true : false}/>
+                  <Form.Control type="number" value={expPrice} onChange={handlePriceInput} min={1} max={orgPrice} disabled={orgPrice === 0 ? true : progress?true:false}/>
                   <Form.Text className="text-muted">
                     <div className="notify-price">We will notify you when price gets below this</div>
                   </Form.Text>
@@ -222,7 +238,7 @@ const AddTracking = (props) => {
           type="submit"
           onClick={handleTrack}
           variant={"dark"}
-          disabled={expPrice === 0 ? true : false}
+          disabled={expPrice === 0 ? true :progress?true:false}
         >
          {props.item?'Update Item':'Track'}
         </Button>
