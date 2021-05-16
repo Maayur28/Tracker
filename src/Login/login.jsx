@@ -11,7 +11,7 @@ const Login = (props) => {
   const [passShow, setpassShow] = useState(false);
   const [show, setShow] = useState(true);
   const [errorOccur, seterrorOccur] = useState();
-  const [forget, setforget] = useState(false);
+  //const [forget, setforget] = useState(false);
   const handleClose = () => {
     setShow(false);
     props.handleLoginLaunch(false);
@@ -24,10 +24,10 @@ const Login = (props) => {
     setShow(false);
     props.handleisLogin(val);
   };
-  const launchforgetPass = () => {
+  /*const launchforgetPass = () => {
     setShow(false);
     setforget(true);
-  };
+  };*/
   const CustomInput = ({ label, ...props }) => {
     const [field, meta] = useField(props);
     return (
