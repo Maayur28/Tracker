@@ -144,6 +144,7 @@ const ViewTracking = () => {
           >
             <thead>
               <tr>
+                <th>Product</th>
                 <th>Product Name</th>
                 <th>Price(when added)</th>
                 <th>Lowest Price(till added)</th>
@@ -154,6 +155,7 @@ const ViewTracking = () => {
             <tbody>
               {data.map((val, index) => (
                 <tr key={index}>
+                  <td>{val.image.length>0 ?<a href={val.image} target="_blank" rel="noreferrer"><Image src={val.image} thumbnail style={{height:'10vh',objectFit:'contain'}}/></a> :<p>not available</p>}</td>
                   <td ><a href={val.url} target="_blank" rel="noreferrer">{val.name}</a></td>
                   <td>
                     <i className="fas fa-rupee-sign"></i>

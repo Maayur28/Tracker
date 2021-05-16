@@ -6,129 +6,125 @@ import "react-toastify/dist/ReactToastify.css";
 
 const AddTracking = (props) => {
   const [modalShow, setModalShow] = useState(true);
-  const [expPrice, setexpPrice] = useState(props.item?props.item.expectedPrice:0);
-  const [orgPrice, setorgPrice] = useState(props.item?props.item.whenAddedPrice:0);
-  const [Url, setUrl] = useState(props.item?props.item.url:"");
-  const [name,setname]=useState(props.item?props.item.name:'');
-  const [progress,setrpogress]=useState(false);
+  const [expPrice, setexpPrice] = useState(props.item ? props.item.expectedPrice : 0);
+  const [orgPrice, setorgPrice] = useState(props.item ? props.item.whenAddedPrice : 0);
+  const [Url, setUrl] = useState(props.item ? props.item.url : "");
+  const [name, setname] = useState(props.item ? props.item.name : "");
+  const [imge, setimge] = useState(props.item ? props.item.imge : "");
+  const [progress, setrpogress] = useState(false);
   const handleTrack = () => {
     let obj = {};
     obj.url = Url;
     obj.whenAddedPrice = orgPrice;
     obj.expectedPrice = expPrice;
-    obj.lowestPrice=orgPrice;
-    obj.name=name;
-    obj.mailPrice=props.item?props.item.mailPrice:orgPrice+1;
+    obj.lowestPrice = orgPrice;
+    obj.image=imge;
+    obj.name = name;
+    obj.mailPrice = props.item ? props.item.mailPrice : orgPrice + 1;
     setrpogress(true);
-    if(props.item)
-    {
-      obj._id=props.item._id;
+    if (props.item) {
+      obj._id = props.item._id;
       fetch("https://pricetrackerorder.herokuapp.com/edittracker", {
-      method: "PUT",
-      body: JSON.stringify(obj),
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": localStorage.getItem("x-auth-token"),
-      },
-    })
-      .then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
-          return response.json();
-        } else {
-          return response.text().then((text) => {
-            throw new Error(text);
-          });
-        }
+        method: "PUT",
+        body: JSON.stringify(obj),
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": localStorage.getItem("x-auth-token"),
+        },
       })
-      .then((data) => {
-        if(data.success===true)
-        {
+        .then((response) => {
+          if (response.status >= 200 && response.status <= 299) {
+            return response.json();
+          } else {
+            return response.text().then((text) => {
+              throw new Error(text);
+            });
+          }
+        })
+        .then((data) => {
+          if (data.success === true) {
+            setrpogress(false);
+            handleHide();
+            toast.info("Updated info has been sent to your email", {
+              position: "bottom-center",
+              autoClose: 1000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: true,
+              progress: undefined,
+            });
+          }
+        })
+        .catch((err) => {
           setrpogress(false);
-          handleHide();
-          toast.info('Updated info has been sent to your email', {
-            position: "bottom-center",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
+          console.log(err);
+        });
+    } else {
+       fetch("https://pricetrackerorder.herokuapp.com/addtracker", {
+      // fetch("http://localhost:2222/addtracker", {
+        method: "POST",
+        body: JSON.stringify(obj),
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": localStorage.getItem("x-auth-token"),
+        },
+      })
+        .then((response) => {
+          if (response.status >= 200 && response.status <= 299) {
+            return response.json();
+          } else {
+            return response.text().then((text) => {
+              throw new Error(text);
             });
-        }
-      })
-      .catch((err) => {
-        setrpogress(false);
-        console.log(err);
-      });
-    }
-    else
-    {
-    fetch("https://pricetrackerorder.herokuapp.com/addtracker", {
-      method: "POST",
-      body: JSON.stringify(obj),
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": localStorage.getItem("x-auth-token"),
-      },
-    })
-      .then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
-          return response.json();
-        } else {
-          return response.text().then((text) => {
-            throw new Error(text);
-          });
-        }
-      })
-      .then((data) => {
-        setrpogress(false);
-        if(data.success===true)
-        {
-          handleHide();
-          toast.info('Tracking info has been sent to your email', {
-            position: "bottom-center",
-            autoClose: 2500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
+          }
+        })
+        .then((data) => {
+          setrpogress(false);
+          if (data.success === true) {
+            handleHide();
+            toast.info("Tracking info has been sent to your email", {
+              position: "bottom-center",
+              autoClose: 2500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: true,
+              progress: undefined,
             });
-        }
-      })
-      .catch((err) => {
-        setrpogress(false);
-        console.log(err);
-      });
+          }
+        })
+        .catch((err) => {
+          setrpogress(false);
+          console.log(err);
+        });
     }
   };
-  const handlePriceInput=(e)=>{
-    if(e.target.value<1)
-    setexpPrice(1);
-    if(e.target.value>orgPrice)
-    setexpPrice(Number(orgPrice));
-    else
-    setexpPrice(Number(e.target.value));
-  }
+  const handlePriceInput = (e) => {
+    if (e.target.value < 1) setexpPrice(1);
+    if (e.target.value > orgPrice) setexpPrice(Number(orgPrice));
+    else setexpPrice(Number(e.target.value));
+  };
   const handleRange = (e) => {
     setexpPrice(Number(e.target.value));
   };
-  const handleHide=()=>{
+  const handleHide = () => {
     setModalShow(false);
     props.handleTrack();
-  }
-  const handleEditedHide=()=>{
+  };
+  const handleEditedHide = () => {
     setModalShow(false);
     props.handleEditedTrack();
-  }
+  };
   const getPrice = (e) => {
     e.target.blur();
     setrpogress(true);
     setUrl(e.target.value);
     setexpPrice(0);
     setorgPrice(0);
-    setname('');
+    setname("");
     fetch("https://pricetrackerorder.herokuapp.com/getprice", {
+    // fetch("http://localhost:2222/getprice", {
       method: "POST",
       body: JSON.stringify({ url: e.target.value }),
       headers: {
@@ -146,9 +142,10 @@ const AddTracking = (props) => {
       })
       .then((data) => {
         setname(data.name);
+        setimge(data.image);
         let price = data.price
-        .replace(/,/g, "")
-        .slice(data.price.indexOf(";") + 1);
+          .replace(/,/g, "")
+          .slice(data.price.indexOf(";") + 1);
         setorgPrice(Number(price.replace(/,/g, "").slice(1)));
         setrpogress(false);
       })
@@ -161,18 +158,30 @@ const AddTracking = (props) => {
     <div className="addTracking">
       <Modal
         show={modalShow}
-        onHide={props.item && props.item.expectedPrice===expPrice?handleEditedHide:handleHide}
+        onHide={
+          props.item && props.item.expectedPrice === expPrice
+            ? handleEditedHide
+            : handleHide
+        }
         size="md"
         centered
         backdrop="static"
       >
         <Modal.Header closeButton>
-          {progress?<div className="progress-bar" style={{backgroundColor:'rgba(0, 0, 0, 0.450)'}}>
-            <div className="running-bar">
+          {progress ? (
+            <div
+              className="progress-bar"
+              style={{ backgroundColor: "rgba(0, 0, 0, 0.450)" }}
+            >
+              <div className="running-bar"></div>
             </div>
-          </div>:null}
+          ) : null}
           <Modal.Title className="addTracking-headingDiv">
-            <p className="addTracking-heading">{props.item?'EDIT ITEM EXPECTED PRICE':'ADD TRACKING URL/LINK'}</p>
+            <p className="addTracking-heading">
+              {props.item
+                ? "EDIT ITEM EXPECTED PRICE"
+                : "ADD TRACKING URL/LINK"}
+            </p>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -184,15 +193,15 @@ const AddTracking = (props) => {
                 placeholder="Paste the url/link here"
                 onChange={getPrice}
                 value={Url}
-                disabled={props.item?true:progress?true:false}
+                disabled={props.item ? true : progress ? true : false}
               />
               <Form.Text className="text-muted">
                 Please check the link before adding to track.
               </Form.Text>
             </Form.Group>
             <Form.Group>
-            <Form.Label>Name of product</Form.Label>
-            <Form.Control type="text" value={name} disabled />
+              <Form.Label>Name of product</Form.Label>
+              <Form.Control type="text" value={name} disabled />
             </Form.Group>
             <Form.Group>
               <Form.Label>Price</Form.Label>
@@ -202,7 +211,7 @@ const AddTracking = (props) => {
                 max={orgPrice}
                 value={expPrice}
                 onChange={handleRange}
-                disabled={orgPrice === 0 ? true :progress?true:false}
+                disabled={orgPrice === 0 ? true : progress ? true : false}
               />
             </Form.Group>
             <Form.Row>
@@ -225,9 +234,18 @@ const AddTracking = (props) => {
                       <i className="fas fa-rupee-sign"></i>
                     </InputGroup.Text>
                   </InputGroup.Prepend>
-                  <Form.Control type="number" value={expPrice} onChange={handlePriceInput} min={1} max={orgPrice} disabled={orgPrice === 0 ? true : progress?true:false}/>
+                  <Form.Control
+                    type="number"
+                    value={expPrice}
+                    onChange={handlePriceInput}
+                    min={1}
+                    max={orgPrice}
+                    disabled={orgPrice === 0 ? true : progress ? true : false}
+                  />
                   <Form.Text className="text-muted">
-                    <div className="notify-price">We will notify you when price gets below this</div>
+                    <div className="notify-price">
+                      We will notify you when price gets below this
+                    </div>
                   </Form.Text>
                 </InputGroup>
               </Form.Group>
@@ -238,9 +256,16 @@ const AddTracking = (props) => {
           type="submit"
           onClick={handleTrack}
           variant={"dark"}
-          disabled={expPrice === 0 || (props.item && expPrice===props.item.expectedPrice) ? true :progress?true:false}
+          disabled={
+            expPrice === 0 ||
+            (props.item && expPrice === props.item.expectedPrice)
+              ? true
+              : progress
+              ? true
+              : false
+          }
         >
-         {props.item?'Update Item':'Track'}
+          {props.item ? "Update Item" : "Track"}
         </Button>
       </Modal>
       <ToastContainer
