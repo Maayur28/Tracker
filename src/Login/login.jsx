@@ -173,7 +173,8 @@ const Login = (props) => {
                     <button
                       type="button"
                       className="login-forget login-buttoncommon"
-                      //onClick={launchforgetPass}                    >
+                      //onClick={launchforgetPass}                    
+>
                       Forget Password?
                     </button>
                     <button
