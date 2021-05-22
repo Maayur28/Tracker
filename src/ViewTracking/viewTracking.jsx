@@ -84,7 +84,6 @@ const ViewTracking = () => {
       })
       .then((val) => {
         setdata(val.trackerDetail);
-        setreturned(true);
       })
       .catch((err) => {
         console.log(err);
@@ -159,9 +158,7 @@ const ViewTracking = () => {
             {returned ? (
               data.length > 0 ? (
                 <Table
-                  striped
                   bordered
-                  hover
                   variant="dark"
                   responsive
                   className="text-center"

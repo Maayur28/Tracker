@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { Modal, Button, Form, Col, InputGroup } from "react-bootstrap";
-import "./addTracking.css";
+import { Modal, Button, Form, Col, InputGroup,Alert } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./addTracking.css";
 
 const AddTracking = (props) => {
   const [modalShow, setModalShow] = useState(true);
+  const [incorrectUrl, setincorrectUrl] = useState(false);
   const [expPrice, setexpPrice] = useState(
     props.item ? props.item.expectedPrice : 0
   );
-  const currPrice= props.item ? props.item.currentPrice : 0
+  const currPrice = props.item ? props.item.currentPrice : 0;
   const [orgPrice, setorgPrice] = useState(
     props.item ? props.item.whenAddedPrice : 0
   );
@@ -23,8 +24,8 @@ const AddTracking = (props) => {
     obj.whenAddedPrice = orgPrice;
     obj.expectedPrice = expPrice;
     obj.lowestPrice = orgPrice;
-    obj.currentPrice=currPrice;
-    obj.image=imge;
+    obj.currentPrice = currPrice;
+    obj.image = imge;
     obj.name = name;
     obj.mailPrice = props.item ? props.item.mailPrice : orgPrice + 1;
     setrpogress(true);
@@ -68,7 +69,7 @@ const AddTracking = (props) => {
           console.log(err);
         });
     } else {
-      obj.currentPrice=orgPrice;
+      obj.currentPrice = orgPrice;
       fetch("https://pricetrackerorder.herokuapp.com/addtracker", {
       // fetch("http://localhost:2222/addtracker", {
         method: "POST",
@@ -113,6 +114,10 @@ const AddTracking = (props) => {
     if (e.target.value > orgPrice) setexpPrice(Number(orgPrice));
     else setexpPrice(Number(e.target.value));
   };
+  const handleUrl = (e) => {
+    setUrl(e.target.value);
+    setincorrectUrl(false);
+  };
   const handleRange = (e) => {
     setexpPrice(Number(e.target.value));
   };
@@ -124,43 +129,59 @@ const AddTracking = (props) => {
     setModalShow(false);
     props.handleEditedTrack();
   };
-  const getPrice = async (e) => {
-    e.target.blur();
-    setrpogress(true);
-    setUrl(e.target.value);
-    setexpPrice(0);
-    setorgPrice(0);
-    setname("");
-    fetch("https://pricetrackerorder.herokuapp.com/getprice", {
-    // fetch("http://localhost:2222/getprice", {
-      method: "POST",
-      body: JSON.stringify({ url: e.target.value }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
-          return response.json();
-        } else {
-          return response.text().then((text) => {
-            throw new Error(text);
-          });
-        }
+  const getPrice = async () => {
+    if (
+      Url.includes("https://www.amazon.in/") ||
+      Url.includes("https://www.flipkart.com/") ||
+      Url.includes("https://dl.flipkart.com/")
+    ) {
+      setrpogress(true);
+      setexpPrice(0);
+      setorgPrice(0);
+      setname("");
+      fetch("https://pricetrackerorder.herokuapp.com/getprice", {
+      // fetch("http://localhost:2222/getprice", {
+        method: "POST",
+        body: JSON.stringify({ url: Url }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .then((data) => {
-        setname(data.name);
-        setimge(data.image);
-        let price = data.price
-          .replace(/,/g, "")
-          .slice(data.price.indexOf(";") + 1);
-        setorgPrice(Number(price.replace(/,/g, "").slice(1)));
-        setrpogress(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setrpogress(false);
-      });
+        .then((response) => {
+          if (response.status >= 200 && response.status <= 299) {
+            return response.json();
+          } else {
+            return response.text().then((text) => {
+              throw new Error(text);
+            });
+          }
+        })
+        .then((data) => {
+          setname(data.name);
+          setimge(data.image);
+          if (Url.includes("amazon")) {
+            let price = data.price
+              .replace(/,/g, "")
+              .slice(data.price.indexOf(";") + 1,-3);
+            setorgPrice(Number(price));
+          } else {
+            let price = data.price
+              .replace(/,/g, "")
+              .slice(data.price.indexOf(";") + 1);
+            setorgPrice(Number(price.replace(/,/g, "").slice(1)));
+          }
+          setrpogress(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setrpogress(false);
+        });
+    } else {
+      setexpPrice(0);
+      setorgPrice(0);
+      setname("");
+      setincorrectUrl(true);
+    }
   };
   return (
     <div className="addTracking">
@@ -194,19 +215,42 @@ const AddTracking = (props) => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Url</Form.Label>
-              <Form.Control
-                type="url"
-                placeholder="Paste the url/link here"
-                onChange={getPrice}
-                value={Url}
-                disabled={props.item ? true : progress ? true : false}
-              />
-              <Form.Text className="text-muted">
-                Please check the link before adding to track.
-              </Form.Text>
-            </Form.Group>
+            <Form.Row>
+              <Form.Group controlId="formBasicEmail" as={Col} sm={11} xs={10}>
+                <Form.Control
+                  type="url"
+                  placeholder="Paste the url/link here"
+                  onChange={handleUrl}
+                  value={Url}
+                  disabled={props.item ? true : progress ? true : false}
+                />
+                {incorrectUrl ? (
+                  <Alert variant='danger'>
+                    Not found!!!Please check the url again.
+                  </Alert>
+                ) : (
+                  <Form.Text className="text-muted">
+                    Please check the link before adding to track.
+                  </Form.Text>
+                )}
+              </Form.Group>
+              <Form.Group as={Col} sm={1} xs={2}>
+                <Button
+                  variant="outline-dark"
+                  size="sm"
+                  onClick={getPrice}
+                  disabled={progress ? true : false}
+                >
+                  <i
+                    className="fas fa-search-dollar"
+                    style={{
+                      fontSize: "20px",
+                      marginTop: "5px",
+                    }}
+                  ></i>
+                </Button>
+              </Form.Group>
+            </Form.Row>
             <Form.Group>
               <Form.Label>Name of product</Form.Label>
               <Form.Control type="text" value={name} disabled />
