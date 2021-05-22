@@ -14,7 +14,7 @@ import AddTracking from "../AddTracking/addTracking";
 import { StoreContext } from "../Store/data";
 
 const ViewTracking = () => {
-  const [data, setdata] = useState([]);
+  const [data, setdata] = useState('');
   const [deleteShow, setdeleteShow] = React.useState(false);
   const [returned, setreturned] = useState(false);
   const [deleteReturned, setdeleteReturned] = useState(false);
@@ -135,8 +135,11 @@ const ViewTracking = () => {
     }
   };
   useEffect(() => {
-    setreturned(true);
-    setdeleteReturned(false);
+    if(typeof data=='string')
+    {
+      setreturned(true);
+      setdeleteReturned(false);
+    }
   }, [data])
   return (
     <>
