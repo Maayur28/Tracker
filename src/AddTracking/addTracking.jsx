@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button, Form, Col, InputGroup,Alert } from "react-bootstrap";
+import { Modal, Button, Form, Col, InputGroup, Alert } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./addTracking.css";
@@ -32,7 +32,7 @@ const AddTracking = (props) => {
     if (props.item) {
       obj._id = props.item._id;
       fetch("https://pricetrackerorder.herokuapp.com/edittracker", {
-      // fetch("http://localhost:2222/edittracker", {
+        // fetch("http://localhost:2222/edittracker", {
         method: "PUT",
         body: JSON.stringify(obj),
         headers: {
@@ -79,7 +79,7 @@ const AddTracking = (props) => {
     } else {
       obj.currentPrice = orgPrice;
       fetch("https://pricetrackerorder.herokuapp.com/addtracker", {
-      // fetch("http://localhost:2222/addtracker", {
+        // fetch("http://localhost:2222/addtracker", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {
@@ -156,7 +156,7 @@ const AddTracking = (props) => {
       setorgPrice(0);
       setname("");
       fetch("https://pricetrackerorder.herokuapp.com/getprice", {
-      // fetch("http://localhost:2222/getprice", {
+        // fetch("http://localhost:2222/getprice", {
         method: "POST",
         body: JSON.stringify({ url: Url }),
         headers: {
@@ -178,7 +178,7 @@ const AddTracking = (props) => {
           if (Url.includes("amazon")) {
             let price = data.price
               .replace(/,/g, "")
-              .slice(data.price.indexOf(";") + 1,-3);
+              .slice(data.price.indexOf(";") + 1, -3);
             setorgPrice(Number(price));
           } else {
             let price = data.price
@@ -249,12 +249,12 @@ const AddTracking = (props) => {
                   disabled={props.item ? true : progress ? true : false}
                 />
                 {incorrectUrl ? (
-                  <Alert variant='danger'>
+                  <Alert variant="danger">
                     Not found!!!Please check the url again.
                   </Alert>
                 ) : (
                   <Form.Text className="text-muted">
-                    Please check the link before adding to track.
+                    We only support Flipkart and Amazon products.
                   </Form.Text>
                 )}
               </Form.Group>
@@ -263,7 +263,7 @@ const AddTracking = (props) => {
                   variant="outline-dark"
                   size="sm"
                   onClick={getPrice}
-                  disabled={props.item? true: progress ? true : false}
+                  disabled={props.item ? true : progress ? true : false}
                 >
                   <i
                     className="fas fa-search-dollar"
