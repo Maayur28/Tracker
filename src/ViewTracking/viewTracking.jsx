@@ -135,7 +135,7 @@ const ViewTracking = () => {
     }
   };
   useEffect(() => {
-    if(typeof data=='string')
+    if(typeof data!='string')
     {
       setreturned(true);
       setdeleteReturned(false);
