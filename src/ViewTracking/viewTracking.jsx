@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./viewTracking.css";
 import { ToastContainer, toast } from "react-toastify";
+import Skeleton from "react-loading-skeleton";
 import {
   Table,
   Row,
@@ -14,7 +15,7 @@ import AddTracking from "../AddTracking/addTracking";
 import { StoreContext } from "../Store/data";
 
 const ViewTracking = () => {
-  const [data, setdata] = useState('');
+  const [data, setdata] = useState("");
   const [deleteShow, setdeleteShow] = React.useState(false);
   const [returned, setreturned] = useState(false);
   const [deleteReturned, setdeleteReturned] = useState(false);
@@ -25,35 +26,34 @@ const ViewTracking = () => {
   //  eslint-disable-next-line
   const [isLogin, setisLogin] = value;
   useEffect(() => {
-    if(isLogin)
-    {
+    if (isLogin) {
       setreturned(false);
       fetch("https://pricetrackerorder.herokuapp.com/gettracker", {
         // fetch("http://localhost:2222/gettracker", {
-      headers: {
-        "x-auth-token": localStorage.getItem("x-auth-token"),
-      },
-    })
-    .then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
-          return response.json();
-        } else {
-          return response.text().then((text) => {
-            throw new Error(text);
-          });
-        }
+        headers: {
+          "x-auth-token": localStorage.getItem("x-auth-token"),
+        },
       })
-      .then((val) => {
-        setdata(val.trackerDetail);
-        setreturned(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        setreturned(true);
-      });
+        .then((response) => {
+          if (response.status >= 200 && response.status <= 299) {
+            return response.json();
+          } else {
+            return response.text().then((text) => {
+              throw new Error(text);
+            });
+          }
+        })
+        .then((val) => {
+          setdata(val.trackerDetail);
+          setreturned(true);
+        })
+        .catch((err) => {
+          console.log(err);
+          setreturned(true);
+        });
     }
-    }, [isLogin]);
-    const handleDelete = (val) => {
+  }, [isLogin]);
+  const handleDelete = (val) => {
     setitemDelete(val._id);
     setdeleteShow(true);
   };
@@ -68,7 +68,7 @@ const ViewTracking = () => {
     setreturned(false);
     seteditModal(false);
     fetch("https://pricetrackerorder.herokuapp.com/gettracker", {
-    // fetch("http://localhost:2222/gettracker", {
+      // fetch("http://localhost:2222/gettracker", {
       headers: {
         "x-auth-token": localStorage.getItem("x-auth-token"),
       },
@@ -84,6 +84,7 @@ const ViewTracking = () => {
       })
       .then((val) => {
         setdata(val.trackerDetail);
+        // setreturned(true);
       })
       .catch((err) => {
         console.log(err);
@@ -96,7 +97,7 @@ const ViewTracking = () => {
       let obj = {};
       obj._id = itemDelete;
       fetch("https://pricetrackerorder.herokuapp.com/deleteitem", {
-      // fetch("http://localhost:2222/deleteitem", {
+        // fetch("http://localhost:2222/deleteitem", {
         method: "DELETE",
         body: JSON.stringify(obj),
         headers: {
@@ -134,12 +135,11 @@ const ViewTracking = () => {
     }
   };
   useEffect(() => {
-    if(typeof data!='string')
-    {
+    if (typeof data != "string") {
       setreturned(true);
       setdeleteReturned(false);
     }
-  }, [data])
+  }, [data]);
   return (
     <>
       {isLogin ? (
@@ -256,7 +256,9 @@ const ViewTracking = () => {
                   }}
                 >
                   <Image src="/emptyCart.gif" fluid />
-                  <h4>Nothing found! Please add to view trackings</h4>{" "}
+                  <h5 className="text-center">
+                    Nothing found! Please add to view trackings
+                  </h5>
                 </div>
               )
             ) : (
@@ -265,12 +267,19 @@ const ViewTracking = () => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: "50vh",
+                  height: "70vh",
                 }}
               >
-                <Spinner animation="border" role="status">
-                  <span className="sr-only">Loading...</span>
-                </Spinner>
+                <Skeleton
+                  width={"95vw"}
+                  height={"8vh"}
+                  count={6}
+                  style={{
+                    marginRight: "40px",
+                    marginLeft: "40px",
+                    marginTop: "15px",
+                  }}
+                />
               </div>
             )}
           </div>
@@ -347,7 +356,16 @@ const ViewTracking = () => {
           ) : null}
         </>
       ) : (
-        <div style={{display:'flex',justifyContent:'center',alignItems:'center',height:'90vh'}}><p style={{fontSize:'1.5rem'}}>Please Login to continue</p></div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "90vh",
+          }}
+        >
+          <p style={{ fontSize: "1.5rem" }}>Please Login to continue</p>
+        </div>
       )}
     </>
   );
