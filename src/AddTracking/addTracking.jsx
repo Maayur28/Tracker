@@ -6,8 +6,13 @@ import "react-toastify/dist/ReactToastify.css";
 
 const AddTracking = (props) => {
   const [modalShow, setModalShow] = useState(true);
-  const [expPrice, setexpPrice] = useState(props.item ? props.item.expectedPrice : 0);
-  const [orgPrice, setorgPrice] = useState(props.item ? props.item.whenAddedPrice : 0);
+  const [expPrice, setexpPrice] = useState(
+    props.item ? props.item.expectedPrice : 0
+  );
+  const currPrice= props.item ? props.item.currentPrice : 0
+  const [orgPrice, setorgPrice] = useState(
+    props.item ? props.item.whenAddedPrice : 0
+  );
   const [Url, setUrl] = useState(props.item ? props.item.url : "");
   const [name, setname] = useState(props.item ? props.item.name : "");
   const [imge, setimge] = useState(props.item ? props.item.imge : "");
@@ -18,13 +23,15 @@ const AddTracking = (props) => {
     obj.whenAddedPrice = orgPrice;
     obj.expectedPrice = expPrice;
     obj.lowestPrice = orgPrice;
+    obj.currentPrice=currPrice;
     obj.image=imge;
     obj.name = name;
     obj.mailPrice = props.item ? props.item.mailPrice : orgPrice + 1;
     setrpogress(true);
     if (props.item) {
       obj._id = props.item._id;
-      fetch("https://pricetrackerorder.herokuapp.com/edittracker", {
+      // fetch("https://pricetrackerorder.herokuapp.com/edittracker", {
+      fetch("http://localhost:2222/edittracker", {
         method: "PUT",
         body: JSON.stringify(obj),
         headers: {
@@ -45,7 +52,7 @@ const AddTracking = (props) => {
           if (data.success === true) {
             setrpogress(false);
             handleHide();
-            toast.info("Updated info has been sent to your email", {
+            toast.info("Tracking info has been updated", {
               position: "bottom-center",
               autoClose: 1000,
               hideProgressBar: false,
@@ -61,8 +68,9 @@ const AddTracking = (props) => {
           console.log(err);
         });
     } else {
-       fetch("https://pricetrackerorder.herokuapp.com/addtracker", {
-      // fetch("http://localhost:2222/addtracker", {
+      obj.currentPrice=orgPrice;
+      // fetch("https://pricetrackerorder.herokuapp.com/addtracker", {
+      fetch("http://localhost:2222/addtracker", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {
@@ -116,15 +124,15 @@ const AddTracking = (props) => {
     setModalShow(false);
     props.handleEditedTrack();
   };
-  const getPrice = (e) => {
+  const getPrice = async (e) => {
     e.target.blur();
     setrpogress(true);
     setUrl(e.target.value);
     setexpPrice(0);
     setorgPrice(0);
     setname("");
-    fetch("https://pricetrackerorder.herokuapp.com/getprice", {
-    // fetch("http://localhost:2222/getprice", {
+    // fetch("https://pricetrackerorder.herokuapp.com/getprice", {
+    fetch("http://localhost:2222/getprice", {
       method: "POST",
       body: JSON.stringify({ url: e.target.value }),
       headers: {
