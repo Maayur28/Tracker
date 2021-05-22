@@ -116,7 +116,6 @@ const ViewTracking = () => {
         })
         .then((val) => {
           setdata(val.trackerDetail);
-          setdeleteReturned(false);
           toast.info("Item has been deleted", {
             position: "bottom-center",
             autoClose: 1000,
@@ -135,6 +134,10 @@ const ViewTracking = () => {
         });
     }
   };
+  useEffect(() => {
+    setreturned(true);
+    setdeleteReturned(false);
+  }, [data])
   return (
     <>
       {isLogin ? (
