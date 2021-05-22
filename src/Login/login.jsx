@@ -11,6 +11,7 @@ const Login = (props) => {
   const [passShow, setpassShow] = useState(false);
   const [show, setShow] = useState(true);
   const [errorOccur, seterrorOccur] = useState();
+// eslint-disable-next-line
   //const [forget, setforget] = useState(false);
   const handleClose = () => {
     setShow(false);

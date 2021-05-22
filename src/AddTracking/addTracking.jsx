@@ -66,7 +66,15 @@ const AddTracking = (props) => {
         })
         .catch((err) => {
           setrpogress(false);
-          console.log(err);
+          toast.info(err.message, {
+            position: "bottom-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
         });
     } else {
       obj.currentPrice = orgPrice;
@@ -105,7 +113,15 @@ const AddTracking = (props) => {
         })
         .catch((err) => {
           setrpogress(false);
-          console.log(err);
+          toast.info(err.message, {
+            position: "bottom-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
         });
     }
   };
@@ -173,7 +189,15 @@ const AddTracking = (props) => {
           setrpogress(false);
         })
         .catch((err) => {
-          console.log(err);
+          toast.info(err.message, {
+            position: "bottom-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
           setrpogress(false);
         });
     } else {
