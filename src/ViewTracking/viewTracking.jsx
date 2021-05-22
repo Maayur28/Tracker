@@ -28,8 +28,8 @@ const ViewTracking = () => {
     if(isLogin)
     {
       setreturned(false);
-      // fetch("https://pricetrackerorder.herokuapp.com/gettracker", {
-        fetch("http://localhost:2222/gettracker", {
+      fetch("https://pricetrackerorder.herokuapp.com/gettracker", {
+        // fetch("http://localhost:2222/gettracker", {
       headers: {
         "x-auth-token": localStorage.getItem("x-auth-token"),
       },
@@ -67,8 +67,8 @@ const ViewTracking = () => {
   const handleEditTrack = () => {
     setreturned(false);
     seteditModal(false);
-    // fetch("https://pricetrackerorder.herokuapp.com/gettracker", {
-    fetch("http://localhost:2222/gettracker", {
+    fetch("https://pricetrackerorder.herokuapp.com/gettracker", {
+    // fetch("http://localhost:2222/gettracker", {
       headers: {
         "x-auth-token": localStorage.getItem("x-auth-token"),
       },
@@ -96,8 +96,8 @@ const ViewTracking = () => {
       setdeleteReturned(true);
       let obj = {};
       obj._id = itemDelete;
-      // fetch("https://pricetrackerorder.herokuapp.com/deleteitem", {
-      fetch("http://localhost:2222/deleteitem", {
+      fetch("https://pricetrackerorder.herokuapp.com/deleteitem", {
+      // fetch("http://localhost:2222/deleteitem", {
         method: "DELETE",
         body: JSON.stringify(obj),
         headers: {

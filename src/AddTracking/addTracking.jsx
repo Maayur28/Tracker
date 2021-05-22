@@ -30,8 +30,8 @@ const AddTracking = (props) => {
     setrpogress(true);
     if (props.item) {
       obj._id = props.item._id;
-      // fetch("https://pricetrackerorder.herokuapp.com/edittracker", {
-      fetch("http://localhost:2222/edittracker", {
+      fetch("https://pricetrackerorder.herokuapp.com/edittracker", {
+      // fetch("http://localhost:2222/edittracker", {
         method: "PUT",
         body: JSON.stringify(obj),
         headers: {
@@ -69,8 +69,8 @@ const AddTracking = (props) => {
         });
     } else {
       obj.currentPrice=orgPrice;
-      // fetch("https://pricetrackerorder.herokuapp.com/addtracker", {
-      fetch("http://localhost:2222/addtracker", {
+      fetch("https://pricetrackerorder.herokuapp.com/addtracker", {
+      // fetch("http://localhost:2222/addtracker", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {
@@ -131,8 +131,8 @@ const AddTracking = (props) => {
     setexpPrice(0);
     setorgPrice(0);
     setname("");
-    // fetch("https://pricetrackerorder.herokuapp.com/getprice", {
-    fetch("http://localhost:2222/getprice", {
+    fetch("https://pricetrackerorder.herokuapp.com/getprice", {
+    // fetch("http://localhost:2222/getprice", {
       method: "POST",
       body: JSON.stringify({ url: e.target.value }),
       headers: {
