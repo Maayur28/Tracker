@@ -178,7 +178,7 @@ const ViewTracking = () => {
                     {data.map((val, index) => (
                       <tr key={index}>
                         <td>
-                          {val.image.length > 0 ? (
+                          {val.image ? (
                             <a
                               href={val.image}
                               target="_blank"
