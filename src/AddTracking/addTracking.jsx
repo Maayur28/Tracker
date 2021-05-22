@@ -263,7 +263,7 @@ const AddTracking = (props) => {
                   variant="outline-dark"
                   size="sm"
                   onClick={getPrice}
-                  disabled={progress ? true : false}
+                  disabled={props.item? true: progress ? true : false}
                 >
                   <i
                     className="fas fa-search-dollar"
