@@ -77,6 +77,9 @@ const AddTracking = (props) => {
           });
         });
     } else {
+      let posi = obj.url.indexOf("ref", obj.url.indexOf("dp") + 2);
+      if (posi === -1) posi = obj.url.indexOf("ref", obj.url.indexOf("dp") + 2);
+      obj.url = obj.url.slice(0, posi);
       obj.currentPrice = orgPrice;
       fetch("https://pricetrackerorder.herokuapp.com/addtracker", {
         // fetch("http://localhost:2222/addtracker", {

@@ -195,9 +195,19 @@ const ViewTracking = () => {
                           )}
                         </td>
                         <td>
-                          <a href={val.url} target="_blank" rel="noreferrer">
-                            {val.name}
-                          </a>
+                          {val.url.includes("amazon") ? (
+                            <a
+                              href={`${val.url}&tag=pricetracker2-21`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {val.name}
+                            </a>
+                          ) : (
+                            <a href={val.url} target="_blank" rel="noreferrer">
+                              {val.name}
+                            </a>
+                          )}
                         </td>
                         <td>
                           <i className="fas fa-rupee-sign"></i>
