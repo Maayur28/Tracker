@@ -75,12 +75,12 @@ const Carousel = () => {
         >
           <Button
             className="mb-2"
-            variant="outline-dark"
+            variant="outline-light"
             onClick={handleAddTracking}
           >
             ADD TRACKING
           </Button>
-          <Button className="mb-2" variant="outline-dark" onClick={viewTracking}>
+          <Button className="mb-2" variant="outline-light" onClick={viewTracking}>
             VIEW TRACKING
           </Button>
         </div>
