@@ -27,7 +27,7 @@
         <li><a href="#run-the-development-server">Run the development server</a></li>
       </ul>
     </li>
-      <li><a href="#google-lighthouse-score">Project Overview</a></li>
+      <li><a href="#project-overview">Project Overview</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
