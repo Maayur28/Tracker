@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+<br />
+<p align="center">
+    <img src="https://res.cloudinary.com/mayur28/image/upload/v1622267757/favilogo_yjk9sm.png" alt="Logo" width="80" height="80">
+  <h3 align="center">Price Tracker App</h3>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  <p align="center">
+   A clean and easy-to-use web experience!
+    <br />
+    <a href="https://pricetracker.tech/"><strong>View Website»</strong></a>
+    <br />
+  </p>
+</p>
 
-## Available Scripts
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#run-the-development-server">Run the development server</a></li>
+      </ul>
+    </li>
+      <li><a href="#google-lighthouse-score">Project Overview</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-In the project directory, you can run:
+## About The Project
 
-### `npm start`
+![HomePage](https://res.cloudinary.com/mayur28/image/upload/v1638013338/PriceTrackerHomePage_flgfes.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+As you have already know from my [portfolio](https://www.mayuragarwal.in/) that my focussed is on creating the user-friendly websites that deliver over the top experience. It delivers clean and easy-to-use user-experience with excellent responsiveness. Some major takeout from the project:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- You need to provide product url and notified when the price drops below the desired price.
+- It helps you to track your favourite product in realtime.
+- Click on Add tracking button and provide url and desired price for that product.
+- You can also view all your trackings by clicking on View Tracking button.
 
-### `npm test`
+### Built With
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This section should list any major frameworks that you built your project using.Here are a few examples.
 
-### `npm run build`
+- [React.js](https://reactjs.org/)
+- [Cheerio](https://cheerio.js.org/)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
 
-### `npm run eject`
+This is an example of how to list things you need to use the software and how to install them.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- npm
+  ```sh
+  npm install
+  ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Run the development server
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+First, run the development server:
 
-## Learn More
+```bash
+npm start
+# or
+yarn start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+You can start editing the page by modifying `src/app.js`. The page auto-updates as you edit the file.
 
-### Code Splitting
+## Project Overview
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![Login](https://res.cloudinary.com/mayur28/image/upload/v1638014543/pts1_bewcmf.png)
+![Register](https://res.cloudinary.com/mayur28/image/upload/v1638014543/pts2_mymove.png)
+![Add Tracking](https://res.cloudinary.com/mayur28/image/upload/v1638014543/pts4_yhbgiq.png)
+![Added Url](https://res.cloudinary.com/mayur28/image/upload/v1638014543/pts5_mbespa.png)
+![View Tracking](https://res.cloudinary.com/mayur28/image/upload/v1638014543/pts3_hv2gwy.png)
+## Contact
 
-### Analyzing the Bundle Size
+Connect with me - [drop message](https://www.mayuragarwal.in/#contact)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Project Link: [Portfolio](https://www.mayuragarwal.in/)
